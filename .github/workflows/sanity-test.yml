@@ -8,24 +8,27 @@ on:
 jobs:
   check-org-membership:
     runs-on: ubuntu-latest
+    outputs:
+      org-member: ${{ steps.org-check.outputs.org-member }}
     steps:
       - name: Check if PR author is a member of the organization
-        id: org-check
         continue-on-error: true
+        id: org-check
         run: |
           ORG="psturc-org"
           AUTHOR="${{ github.event.pull_request.user.login }}"
           MEMBERSHIP=$(gh api -H "Accept: application/vnd.github.v3+json" /orgs/$ORG/memberships/$AUTHOR -q .state)
           if [[ "$MEMBERSHIP" == "active" ]]; then
-            echo "ORG_MEMBER=true" >> $GITHUB_ENV
+            echo "org-member=true" >> $GITHUB_OUTPUT
             exit 0
           else
+            echo '### ❌ PR author is not a member of GitHub organization' >> $GITHUB_STEP_SUMMARY
             exit 1
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
       
   sanity-test:
-    if: ${{ (github.event.pull_request.user.login == 'renovate[bot]') || contains(github.event.pull_request.labels.*.name, 'ok-to-test') || (needs.check-org-membership.result == 'success') }}
+    if: ${{ (needs.check-org-membership.outputs.org-member == 'true') || (github.event.pull_request.user.login == 'renovate[bot]') || contains(github.event.pull_request.labels.*.name, 'ok-to-test') }}
     needs: check-org-membership
     runs-on: ubuntu-latest
     steps:
