@@ -843,3 +843,4 @@ In addition, you can configure additional `Identity providers` such as `Github`,
 * [Troubleshooting common issues](./docs/troubleshooting.md)
 * [Release guidelines](./RELEASE.md)
 * [Contributing guidelines](./CONTRIBUTING.md)
+
