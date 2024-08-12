@@ -19,6 +19,7 @@ main() {
         --from-literal webhook.secret="$app_webhook_secret"; done
     sed -i "s|<smee-channel>|$smee_channel|g" "${script_path}/../../smee/smee-client.yaml"
     kubectl create -f "${script_path}/../../smee/smee-client.yaml"
+    kubectl wait --for=condition=Available deployment --all -A --timeout=180s
 }
 
 
