@@ -6,6 +6,7 @@ Konflux-CI
 - [Document Conventions](#document-conventions)
 - [Trying Out Konflux](#trying-out-konflux)
   * [Machine Minimum Requirements](#machine-minimum-requirements)
+  * 
   * [Installing Software Dependencies](#installing-software-dependencies)
   * [Bootstrapping the Cluster](#bootstrapping-the-cluster)
   * [Enable Pipelines Triggering via Webhooks](#enable-pipelines-triggering-via-webhooks)
