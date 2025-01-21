@@ -10,6 +10,7 @@ main() {
 generate_logs() {
     local logs_dir="logs"
     local pod_definitions_file="$logs_dir/failed-pods-definitions.yaml"
+    
     local pod_logs_file="$logs_dir/failed-pods-logs.log"
     local event_messages_file="$logs_dir/failed-deployment-event-log.log"
 
