@@ -9,6 +9,7 @@ main() {
     echo "Waiting for Konflux to be ready" >&2
     local ret=0
     "${script_path}/wait-for-all.sh" || ret="$?"
+    
     if [ $ret -ne 0 ]; then
         echo "Deployment failed"
         ./generate-err-logs.sh
